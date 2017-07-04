@@ -24,4 +24,4 @@ try:
     event = pingpp.Event.retrieve('evt_la06CoQAiPojSgJKe5gt3nwq')
     print(event)
 except Exception as e:
-    print (e.http_body)
+    print(e.http_body)

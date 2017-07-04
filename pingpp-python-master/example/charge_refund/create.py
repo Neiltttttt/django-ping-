@@ -7,15 +7,12 @@
   该代码仅供学习和研究 Ping++ SDK 使用，仅供参考。
 '''
 import pingpp
-import random
-import string
 import os
 
 # api_key 获取方式：登录 [Dashboard](https://dashboard.pingxx.com)->点击管理平台右上角公司名称->企业设置->开发设置-> Secret Key
 api_key = 'sk_test_ibbTe5jLGCi5rzfH4OqPW9KC'
 # app_id 获取方式：登录 [Dashboard](https://dashboard.pingxx.com)->点击你创建的应用->应用首页->应用 ID(App ID)
 app_id = 'app_1Gqj58ynP0mHeX1q'
-
 # 设置 API Key
 pingpp.api_key = api_key
 
@@ -27,29 +24,17 @@ pingpp.api_key = api_key
   注：报关接口，必须配置该值，不管是否启用，都需要验证签名。
 '''
 pingpp.private_key_path = os.path.join(
-    os.path.dirname(__file__), 'your_rsa_private_key.pem')
-
-
-# 商户报关订单号，8~20位
-trade_no = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-
-# 请求报关接口
+    os.path.dirname(os.getcwd()), 'your_rsa_private_key.pem')
+'''
+    Charges 支付Demo: https://www.pingxx.com/api#创建-refund-对象
+    创建Refund对象
+'''
+print("创建Refund对象:")
 try:
-    customs = pingpp.Customs.create(
-        app=app_id,
-        charge='ch_i2PKhP1qDWNPK9CoqTKQsqb5',
-        channel='alipay',
-        amount=100,  # 报关金额, 人民币单位：分
-        customs_code='GUANGZHOU',
-        trade_no=trade_no
-    )
-    print(customs)  # // 输出 Ping++ 返回的报关对象 Transfer
-except Exception as e:
-    print(e.http_body)
-
-# 查询报关接口
-try:
-    customs_info = pingpp.Customs.retrieve("14201607013878045463")
-    print(customs_info)
+    # 通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款
+    ch = pingpp.Charge.retrieve("ch_Ti1eD0WP08eDPSSqnTOmLWHK")  # Charge 对象的 id
+    # amount 为退款的金额, 单位为对应币种的最小货币单位，例如：人民币为分（如退款金额为 1 元，此处请填 100）。必须小于等于可退款金额，默认为全额退款
+    re = ch.refunds.create(description='Your Descripton', amount=1)
+    print(re)  # 输出 Ping++ 返回的退款对象 Refund
 except Exception as e:
     print(e.http_body)
