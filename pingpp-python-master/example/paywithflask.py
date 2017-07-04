@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/pay', methods=['POST'])
 def do_charge():
-    print request.url
+    print(request.url)
     params = request.get_json()
     orderno = ''.join(random.sample(string.ascii_letters + string.digits, 8))
 
@@ -70,11 +70,11 @@ def do_charge():
         params['subject'] = 'Your Subject'
         params['body'] = 'Your Body'
         params['extra'] = extra
-    print params
+    print(params)
     pingpp.api_key = 'sk_test_ibbTe5jLGCi5rzfH4OqPW9KC'
     pingpp.private_key_path = 'your_rsa_private_key.pem'
     response_charge = pingpp.Charge.create(api_key=pingpp.api_key, **params)
-    print 'Response_Charge: ' + str(response_charge)
+    print('Response_Charge: ' + str(response_charge))
     return Response(json.dumps(response_charge),
                     mimetype='application/json,charset=UTF-8')
 

@@ -30,7 +30,7 @@ pingpp.private_key_path = os.path.join(
     创建charge对象,查询charge对象,查询charge对象列表
     创建Refund对象,查询Refund对象,查询Refund对象列表
 '''
-print "创建charge对象:"
+print("创建charge对象:")
 try:
     charge = pingpp.Charge.create(
         order_no='1234567890',
@@ -46,14 +46,14 @@ try:
 except Exception as e:
     print(e.http_body)
 
-print "获取Charge对象:"
+print("获取Charge对象:")
 try:
     charge_info = pingpp.Charge.retrieve('ch_Civ1O8880Wf1KmbPCCGujf5S')
-    print charge_info
+    print(charge_info)
 except Exception as e:
-    print e.http_body
+    print(e.http_body)
 
-print "获取Charge对象列表:"
+print("获取Charge对象列表:")
 try:
     params = {
         'app': {
@@ -62,11 +62,11 @@ try:
     }
     params = {}
     charge_list = pingpp.Charge.all(**params)
-    print charge_list
+    print(charge_list)
 except Exception as e:
-    print e.http_body
+    print(e.http_body)
 
-print "创建Refund对象:"
+print("创建Refund对象:")
 try:
     charge_info = pingpp.Charge.retrieve('ch_W5CCe9uPujnDLqvbvH9OOS8S')
     charge_refund_params = {
@@ -74,26 +74,26 @@ try:
         'amount': 10
     }
     charge_refund = charge_info.refund(**charge_refund_params)
-    print charge_refund
+    print(charge_refund)
 except Exception as e:
-    print e.http_body
+    print(e.http_body)
 
 
-print "查询Refund对象列表:"
+print("查询Refund对象列表:")
 try:
     charge_info = pingpp.Charge.retrieve('ch_W5CCe9uPujnDLqvbvH9OOS8S')
     charge_refund_list_params = {
         'limit': 1,
     }
     charge_refund_list = charge_info.refund_list(**charge_refund_list_params)
-    print charge_refund_list
+    print(charge_refund_list)
 except Exception as e:
-    print e.http_body
+    print(e.http_body)
 
-print "查询Refund对象:"
+print("查询Refund对象:")
 try:
     charge_info = pingpp.Charge.retrieve('ch_W5CCe9uPujnDLqvbvH9OOS8S')
     charege_refund_retrieve = charge_info.refund_retrieve('re_GKOuf1a9408OazbbPKS0CqX5')
-    print charge_info
+    print(charge_info)
 except Exception as e:
-    print e.http_body
+    print(e.http_body)

@@ -22,6 +22,6 @@ pingpp.private_key_path = os.path.join(
 # 查询 Event 对象
 try:
     event = pingpp.Event.retrieve('evt_la06CoQAiPojSgJKe5gt3nwq')
-    print event
+    print(event)
 except Exception as e:
-    print e.http_body
+    print (e.http_body)

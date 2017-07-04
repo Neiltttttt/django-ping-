@@ -27,7 +27,7 @@ req_params = {
 }
 try:
     identification = pingpp.Identification.create(**req_params)
-    print "identification  instance \n", identification
+    print("identification  instance \n", identification)
 
 except Exception as e:
-    print e
+    print(e)
